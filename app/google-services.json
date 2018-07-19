@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "46812227882",
+    "firebase_url": "https://homecare-6cc81.firebaseio.com",
+    "project_id": "homecare-6cc81",
+    "storage_bucket": "homecare-6cc81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46812227882:android:aa7b88e4e7c58e4d",
+        "android_client_info": {
+          "package_name": "com.narmware.homecare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46812227882-0hfphpmjjguqi4htcljs720cq5lce6u9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.narmware.homecare",
+            "certificate_hash": "32a481a90c70f58eb7434404834816560371da0c"
+          }
+        },
+        {
+          "client_id": "46812227882-br3coafbc3q1seaqgcktsd5k6a4g5nm8.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "46812227882-br3coafbc3q1seaqgcktsd5k6a4g5nm8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpkOWJ9l6uUzRKSG5--Q8-oWfwNI84Lyo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46812227882-br3coafbc3q1seaqgcktsd5k6a4g5nm8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
