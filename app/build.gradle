@@ -65,6 +65,9 @@ dependencies {
     implementation 'com.karumi:dexter:4.2.0'
 
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'org.sufficientlysecure:html-textview:3.6'
+
+
 }
 
 

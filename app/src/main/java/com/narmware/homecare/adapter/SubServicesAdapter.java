@@ -63,6 +63,8 @@ public class SubServicesAdapter extends RecyclerView.Adapter<SubServicesAdapter.
                     Intent intent=new Intent(mContext, BookAppointmentActivity.class);
                     intent.putExtra("image",mItem.getSer_img_url());
                     intent.putExtra("name",mItem.getSer_name());
+                    intent.putExtra("desc",mItem.getSub_service_desc());
+
                     mContext.startActivity(intent);
 
                     //setFragment(DetailedFragment.newInstance(Integer.parseInt(mItem.getMain_service_id()),mItem.getSer_img_url(),mItem.getSer_name(),mItem.getSub_service_desc()));

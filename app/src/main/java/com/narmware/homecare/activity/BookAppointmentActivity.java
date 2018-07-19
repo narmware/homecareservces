@@ -32,6 +32,7 @@ import com.narmware.homecare.fragment.AddressFragment;
 import com.narmware.homecare.fragment.ConfirmOrderFragment;
 import com.narmware.homecare.fragment.DashboardFragment;
 import com.narmware.homecare.fragment.DateTimeFragment;
+import com.narmware.homecare.fragment.DescriptionFragment;
 import com.narmware.homecare.fragment.PersonalDetailsFragment;
 import com.narmware.homecare.helper.Constants;
 import com.narmware.homecare.helper.SharedPreferencesHelper;
@@ -48,7 +49,7 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class BookAppointmentActivity extends AppCompatActivity implements DashboardFragment.OnFragmentInteractionListener,DateTimeFragment.OnFragmentInteractionListener,AddressFragment.OnFragmentInteractionListener
-,PersonalDetailsFragment.OnFragmentInteractionListener,ConfirmOrderFragment.OnFragmentInteractionListener
+,PersonalDetailsFragment.OnFragmentInteractionListener,ConfirmOrderFragment.OnFragmentInteractionListener,DescriptionFragment.OnFragmentInteractionListener
 {
     @BindView(R.id.btn_next) Button mBtnNext;
     @BindView(R.id.btn_continue) Button mBtnContinue;
@@ -63,7 +64,7 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
     public static String mDate,mTime,mName,mMobile,mAlternateMobile,mMail,mAddr,mOrderDesc;
     String mBuildName,mHouseNum,mStreetName,mCity,mPin;
     String mCompName,mCompBuildName,mCompStreetName,mCompCity,mCompPin,mCompAddr;
-    String serviceName,serviceImage;
+    String serviceName,serviceImage,serviceDesc;
     RequestQueue mVolleyRequest;
     protected Dialog mNoConnectionDialog;
 
@@ -79,14 +80,15 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
         Intent intent=getIntent();
         serviceName=intent.getStringExtra("name");
         serviceImage=intent.getStringExtra("image");
+        serviceDesc=intent.getStringExtra("desc");
 
-        setFragment(new AddressFragment());
+        setFragment(DescriptionFragment.newInstance(serviceDesc));
 
         mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int currentProgress=mProgressBar.getProgress();
-                int progress=currentProgress+50;
+                int progress=currentProgress+30;
                 ObjectAnimator progressAnimator = ObjectAnimator.ofInt(mProgressBar, "progress", currentProgress, progress);
                 progressAnimator.setDuration(500);
                 progressAnimator.setInterpolator(new LinearInterpolator());
@@ -94,8 +96,8 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
                 mDate= SharedPreferencesHelper.getBookDate(BookAppointmentActivity.this);
                 mTime= SharedPreferencesHelper.getBookDate(BookAppointmentActivity.this);
 
-                //current frag address
-                if(count==0)
+                    //current frag address
+                if(count==1)
                 {
                     //Toast.makeText(BookAppointmentActivity.this,count+"",Toast.LENGTH_SHORT).show();
 
@@ -144,6 +146,13 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
 
 
                 }
+                //current frag description
+                if(count==0)
+                {
+                    progressAnimator.start();
+                    setFragment(new AddressFragment());
+                    count++;
+                }
             }
         });
 
@@ -152,7 +161,7 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
             public void onClick(View view) {
                 //current frag personal_details
                 //Toast.makeText(BookAppointmentActivity.this,count+"",Toast.LENGTH_SHORT).show();
-                if(count==1)
+                if(count==2)
                 {
 
                     mName=PersonalDetailsFragment.mEdtName.getText().toString().trim();
@@ -278,9 +287,6 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
     public void setFragment(Fragment fragment)
     {
         fragmentManager=getSupportFragmentManager();
-       /* fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container,fragment);
-        fragmentTransaction.commit();*/
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //fragment.setSharedElementReturnTransition(TransitionInflater.from(mContext).inflateTransition(android.R.transition.explode));
@@ -325,7 +331,7 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
         }
 
         int currentProgress=mProgressBar.getProgress();
-        int progress=currentProgress-50;
+        int progress=currentProgress-30;
         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(mProgressBar, "progress", currentProgress, progress);
         progressAnimator.setDuration(500);
         progressAnimator.setInterpolator(new LinearInterpolator());
