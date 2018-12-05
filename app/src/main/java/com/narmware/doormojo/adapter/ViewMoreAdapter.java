@@ -10,6 +10,8 @@ import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import com.narmware.doormojo.fragment.SubSrvicesFragment;
 import com.narmware.doormojo.pojo.ServiceMain;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,13 +29,53 @@ import java.util.List;
  * Created by Lincoln on 31/03/16.
  */
 
-public class ViewMoreAdapter extends RecyclerView.Adapter<ViewMoreAdapter.MyViewHolder> {
+public class ViewMoreAdapter extends RecyclerView.Adapter<ViewMoreAdapter.MyViewHolder> implements Filterable {
 
      static List<ServiceMain> services;
+    static List<ServiceMain> servicesFiltered=new ArrayList<>();
     static Context mContext;
     ImageView mImgFrame;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    ContactsAdapterListener listener;
+    //boolean isFiltering=false;
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    //isFiltering=false;
+
+                    servicesFiltered = services;
+                } else {
+                   // isFiltering=true;
+
+                    List<ServiceMain> filteredList = new ArrayList<>();
+                    for (ServiceMain row : services) {
+
+                        if (row.getService_title().toUpperCase().contains(charString.toUpperCase())) {
+                            Toast.makeText(mContext, "Filtered "+charString.toUpperCase(), Toast.LENGTH_SHORT).show();
+                            filteredList.add(row);
+                        }
+                    }
+
+                    servicesFiltered = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = servicesFiltered;
+                return filterResults;            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                servicesFiltered = (ArrayList<ServiceMain>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView mthumb_title;
@@ -62,6 +105,7 @@ public class ViewMoreAdapter extends RecyclerView.Adapter<ViewMoreAdapter.MyView
     public ViewMoreAdapter(Context context, List<ServiceMain> services, FragmentManager fragmentManager) {
         this.mContext = context;
         this.services = services;
+        this.servicesFiltered = services;
         this.fragmentManager=fragmentManager;
     }
 
@@ -75,7 +119,7 @@ public class ViewMoreAdapter extends RecyclerView.Adapter<ViewMoreAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        ServiceMain serviceMain = services.get(position);
+        ServiceMain serviceMain = servicesFiltered.get(position);
 
 
         //holder.mRelativeItem.setTag(position);
@@ -123,7 +167,20 @@ public class ViewMoreAdapter extends RecyclerView.Adapter<ViewMoreAdapter.MyView
     }
     @Override
     public int getItemCount() {
-        return services.size();
+
+      /*  if(isFiltering==false) {
+            return services.size();
+        }
+
+        if(isFiltering==true) {
+            return servicesFiltered.size();
+        }*/
+
+        return servicesFiltered.size();
     }
+    public interface ContactsAdapterListener {
+        void onContactSelected(ServiceMain contact);
+    }
+
 
 }

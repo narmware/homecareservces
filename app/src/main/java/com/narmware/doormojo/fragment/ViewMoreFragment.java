@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -62,6 +64,8 @@ public class ViewMoreFragment extends Fragment {
     @BindView(R.id.recycler_view) RecyclerView mMoreRecycler;
     RequestQueue mVolleyRequest;
     protected Dialog mNoConnectionDialog;
+    /*@BindView(R.id.simpleSearchView)
+    SearchView searchView;*/
 
     public ViewMoreFragment() {
         // Required empty public constructor
@@ -110,6 +114,21 @@ public class ViewMoreFragment extends Fragment {
 
         setHeaderAdapter(new GridLayoutManager(getContext(),3) );
         GetServices();
+
+        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                viewMoreAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Toast.makeText(getContext(), newText, Toast.LENGTH_SHORT).show();
+                viewMoreAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });*/
     }
 
     public void setHeaderAdapter(RecyclerView.LayoutManager mLayoutManager){
