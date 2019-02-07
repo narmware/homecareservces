@@ -7,6 +7,7 @@ package com.narmware.doormojo.pojo;
 public class BookSchedule {
 
     String name,address,mob,email,service,alt_mobile,user_id,msg,pincode;
+    String city,sub_service_id,cat_id;
 
     public String getName() {
         return name;
@@ -78,5 +79,29 @@ public class BookSchedule {
 
     public void setPincode(String pincode) {
         this.pincode = pincode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getSub_service_id() {
+        return sub_service_id;
+    }
+
+    public void setSub_service_id(String sub_service_id) {
+        this.sub_service_id = sub_service_id;
+    }
+
+    public String getCat_id() {
+        return cat_id;
+    }
+
+    public void setCat_id(String cat_id) {
+        this.cat_id = cat_id;
     }
 }

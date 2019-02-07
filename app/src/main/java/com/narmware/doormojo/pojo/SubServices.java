@@ -5,13 +5,13 @@ package com.narmware.doormojo.pojo;
  */
 
 public class SubServices {
-    String sub_service_url,sub_service_name,sub_service_id,main_service_id,sub_service_desc;
+    String sub_service_url,sub_service_name,sub_service_id,cat_id,sub_service_desc;
 
     public SubServices(String ser_img_url, String ser_name, String sub_service_id, String main_service_id,String sub_service_desc) {
         this.sub_service_url = ser_img_url;
         this.sub_service_name = ser_name;
         this.sub_service_id = sub_service_id;
-        this.main_service_id = main_service_id;
+        this.cat_id = main_service_id;
         this.sub_service_desc=sub_service_desc;
     }
 
@@ -40,11 +40,11 @@ public class SubServices {
     }
 
     public String getMain_service_id() {
-        return main_service_id;
+        return cat_id;
     }
 
     public void setMain_service_id(String main_service_id) {
-        this.main_service_id = main_service_id;
+        this.cat_id = main_service_id;
     }
 
     public String getSub_service_desc() {

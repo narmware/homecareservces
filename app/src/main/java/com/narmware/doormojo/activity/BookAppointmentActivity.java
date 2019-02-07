@@ -64,7 +64,7 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
     public static String mDate,mTime,mName,mMobile,mAlternateMobile,mMail,mAddr,mOrderDesc;
     String mBuildName,mHouseNum,mStreetName,mCity,mPin;
     String mCompName,mCompBuildName,mCompStreetName,mCompCity,mCompPin,mCompAddr;
-    String serviceName,serviceImage,serviceDesc;
+    String serviceName,serviceImage,serviceDesc,main_service_id,subServiceId;
     RequestQueue mVolleyRequest;
     protected Dialog mNoConnectionDialog;
 
@@ -81,6 +81,8 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
         serviceName=intent.getStringExtra("name");
         serviceImage=intent.getStringExtra("image");
         serviceDesc=intent.getStringExtra("desc");
+        main_service_id=intent.getStringExtra("cat_id");
+        subServiceId=intent.getStringExtra("sub_service_id");
 
         setFragment(DescriptionFragment.newInstance(serviceDesc));
 
@@ -359,10 +361,12 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
         {
             bookSchedule.setAddress(mAddr);
             bookSchedule.setPincode(mPin);
+            bookSchedule.setCity(mCity);
         }
         else{
             bookSchedule.setAddress(mCompAddr);
             bookSchedule.setPincode(mCompPin);
+            bookSchedule.setCity(mCompCity);
         }
         bookSchedule.setMob(mMobile);
         bookSchedule.setService(serviceName);
@@ -370,6 +374,8 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
         bookSchedule.setMsg(mOrderDesc);
         bookSchedule.setAlt_mobile(mAlternateMobile);
         bookSchedule.setUser_id(SharedPreferencesHelper.getUserId(BookAppointmentActivity.this));
+        bookSchedule.setCat_id(main_service_id);
+        bookSchedule.setSub_service_id(subServiceId);
 
         Gson gson=new Gson();
         String json_string=gson.toJson(bookSchedule);
@@ -406,7 +412,11 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
 
                             if(bookResponse.getResponse().equals("200")) {
 
-                                new SweetAlertDialog(BookAppointmentActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+
+                                Intent intent=new Intent(BookAppointmentActivity.this,WebViewActivity.class);
+                                intent.putExtra(Constants.BOOKING_ID,String.valueOf(bookResponse.getBooking_id()));
+                                startActivity(intent);
+                                /*new SweetAlertDialog(BookAppointmentActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                         .setTitleText("Done")
                                         .setContentText("Order Placed successfully")
                                         .setConfirmText("Ok")
@@ -419,7 +429,7 @@ public class BookAppointmentActivity extends AppCompatActivity implements Dashbo
                                             }
                                         })
 
-                                        .show();
+                                        .show();*/
                             }
 
                         } catch (Exception e) {

@@ -213,7 +213,7 @@ public class BookingFragment extends Fragment {
                                 MyBookings[] myBookings=myBookingsResponse.getData();
                                 for (MyBookings item : myBookings) {
 
-                                    MyBookings booking=new MyBookings(item.getB_service_name(),item.getB_date(),"1",item.getB_desc(),item.getB_price(),item.getB_service_img(),item.getB_status());
+                                    MyBookings booking=new MyBookings(item.getOrder_id(),item.getB_service_name(),item.getB_date(),"1",item.getB_desc(),item.getB_price(),item.getB_service_img(),item.getB_status());
                                     bookings.add(booking);
                                 }
                                 bookingsAdapter.notifyDataSetChanged();

@@ -215,6 +215,7 @@ public class DashboardFragment extends Fragment {
         for(String name : file_maps.keySet()){
             //textSliderView displays image with text title
             //TextSliderView textSliderView = new TextSliderView(NavigationActivity.this);
+            Log.e("Banner",name+"  "+file_maps.get(name));
 
             //DefaultSliderView displays only image
             DefaultSliderView textSliderView = new DefaultSliderView(getContext());
@@ -284,18 +285,10 @@ public class DashboardFragment extends Fragment {
 
 
         HashMap<String,String> param = new HashMap();
-        // param.put(Constants.REQUEST_ALBUM,mAlbumId);
-
-        //url with params
-        //String url= SupportFunctions.appendParam(MyApplication.URL_GET_BANNER_IMAGES,param);
-
-        //url without params
         String url=MyApplication.URL_GET_BANNER_IMAGES;
 
         Log.e("Banner url",url);
         JsonObjectRequest obreq = new JsonObjectRequest(Request.Method.GET,url,null,
-                // The third parameter Listener overrides the method onResponse() and passes
-                //JSONObject as a parameter
                 new Response.Listener<JSONObject>() {
 
                     // Takes the response from the JSON request
@@ -304,9 +297,6 @@ public class DashboardFragment extends Fragment {
 
                         try
                         {
-                            //getting test master array
-                            // testMasterDetails = testMasterArray.toString();
-
                             Log.e("Banner Json_string",response.toString());
                             Gson gson = new Gson();
 
@@ -328,7 +318,6 @@ public class DashboardFragment extends Fragment {
                         } catch (Exception e) {
 
                             e.printStackTrace();
-                            //Toast.makeText(NavigationActivity.this, "Invalid album id", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },

@@ -64,6 +64,8 @@ public class SubServicesAdapter extends RecyclerView.Adapter<SubServicesAdapter.
                     intent.putExtra("image",mItem.getSer_img_url());
                     intent.putExtra("name",mItem.getSer_name());
                     intent.putExtra("desc",mItem.getSub_service_desc());
+                    intent.putExtra("cat_id",mItem.getMain_service_id());
+                    intent.putExtra("sub_service_id",mItem.getSub_service_id());
 
                     mContext.startActivity(intent);
 

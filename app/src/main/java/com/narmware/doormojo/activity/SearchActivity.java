@@ -1,6 +1,7 @@
 package com.narmware.doormojo.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -73,15 +74,26 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                Toast.makeText(SearchActivity.this,searchView.getText()+"  "+subServices.size(), Toast.LENGTH_SHORT).show();
+                String selected_service= String.valueOf(searchView.getText());
 
                 for(int i=0;i<subServices.size();i++)
                 {
                     Log.e("Matching",subServices.get(i).getSer_name()+"  "+searchView.getText());
                     //if(searchView.getText().equals(subServices.get(i).getSer_name()))
-                    if(subServices.get(i).getSer_name().equals(searchView.getText()))
+                    String service_name=subServices.get(i).getSer_name();
+                    selected_service= String.valueOf(searchView.getText());
+                    if(service_name.equals(selected_service))
                     {
-                        Toast.makeText(SearchActivity.this,"id "+subServices.get(i).getSub_service_id(), Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(SearchActivity.this, BookAppointmentActivity.class);
+                        intent.putExtra("image",subServices.get(i).getSer_img_url());
+                        intent.putExtra("name",selected_service);
+                        intent.putExtra("desc",subServices.get(i).getSub_service_desc());
+                        intent.putExtra("cat_id",subServices.get(i).getMain_service_id());
+                        intent.putExtra("sub_service_id",subServices.get(i).getSub_service_id());
+                        startActivity(intent);
+                        finish();
+
+                        Toast.makeText(SearchActivity.this,"id "+subServices.get(i).getMain_service_id(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

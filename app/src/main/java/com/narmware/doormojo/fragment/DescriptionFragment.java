@@ -70,7 +70,12 @@ public class DescriptionFragment extends Fragment {
     private void init(View view) {
         ButterKnife.bind(this,view);
         //mTxtSubDesc.setHtml("<h2>Hello world</h2><ul><li>cats</li><li>dogs</li></ul><img src=\"http://www.petsworld.in/blog/wp-content/uploads/2014/09/cute-kittens.jpg\"/>",new HtmlHttpImageGetter(mTxtSubDesc));
-        mTxtSubDesc.setHtml(mDesc);
+       try {
+           mTxtSubDesc.setHtml(mDesc);
+       }catch (Exception e)
+       {
+           e.printStackTrace();
+       }
 
     }
 

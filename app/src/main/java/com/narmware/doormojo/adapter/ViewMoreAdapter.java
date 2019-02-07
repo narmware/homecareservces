@@ -1,12 +1,15 @@
 package com.narmware.doormojo.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +19,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ahmadrosid.svgloader.SvgLoader;
 import com.narmware.doormojo.R;
 import com.narmware.doormojo.fragment.SubSrvicesFragment;
 import com.narmware.doormojo.pojo.ServiceMain;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,14 +130,25 @@ public class ViewMoreAdapter extends RecyclerView.Adapter<ViewMoreAdapter.MyView
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         ServiceMain serviceMain = servicesFiltered.get(position);
 
-
         //holder.mRelativeItem.setTag(position);
-        Picasso.with(mContext)
-                .load(serviceMain.getService_image())
-                .fit()
-                .noFade()
-                .placeholder(mContext.getResources().getDrawable(R.drawable.placeholder))
-                .into(mImgFrame);
+        Activity activity= (Activity) mContext;
+
+        String img_extension=serviceMain.getService_image().substring(serviceMain.getService_image().length() - 3);
+
+       // Log.e("trimWord", serviceMain.getService_image().substring(serviceMain.getService_image().length() - 3));
+        if(img_extension.equals("svg")) {
+            SvgLoader.pluck()
+                    .with(activity)
+                    .setPlaceHolder(R.mipmap.ic_launcher, R.mipmap.ic_launcher)
+                    .load(serviceMain.getService_image(), mImgFrame);
+        }else {
+            Picasso.with(mContext)
+                    .load(serviceMain.getService_image())
+                    .fit()
+                    .noFade()
+                    .placeholder(mContext.getResources().getDrawable(R.drawable.placeholder))
+                    .into(mImgFrame);
+        }
         holder.mthumb_title.setText(serviceMain.getService_title());
         holder.mItem=serviceMain;
 

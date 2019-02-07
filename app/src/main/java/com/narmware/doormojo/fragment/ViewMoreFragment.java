@@ -255,7 +255,7 @@ public class ViewMoreFragment extends Fragment {
                     // Handles errors that occur due to Volley
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", "Test Error");
-                         showNoConnectionDialog();
+                         //showNoConnectionDialog();
                         //dialog.dismiss();
 
                     }
