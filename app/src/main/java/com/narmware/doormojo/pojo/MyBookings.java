@@ -5,9 +5,9 @@ package com.narmware.doormojo.pojo;
  */
 
 public class MyBookings {
-    String b_service_name,b_date,b_ratings,b_desc,b_price,b_service_img,b_status,order_id;
+    String b_service_name,b_date,b_ratings,b_desc,b_price,b_service_img,b_status,order_id,b_no;
 
-    public MyBookings(String order_id,String b_service_name, String b_date, String b_ratings, String b_desc, String b_price, String b_service_img, String b_status) {
+    public MyBookings(String order_id,String b_service_name, String b_date, String b_ratings, String b_desc, String b_price, String b_service_img, String b_status,String b_no) {
         this.b_service_name = b_service_name;
         this.b_date = b_date;
         this.b_ratings = b_ratings;
@@ -16,6 +16,15 @@ public class MyBookings {
         this.b_service_img=b_service_img;
         this.b_status=b_status;
         this.order_id=order_id;
+        this.b_no=b_no;
+    }
+
+    public String getB_no() {
+        return b_no;
+    }
+
+    public void setB_no(String b_no) {
+        this.b_no = b_no;
     }
 
     public String getOrder_id() {

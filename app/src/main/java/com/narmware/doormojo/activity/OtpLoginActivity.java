@@ -14,11 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -33,7 +36,9 @@ import com.narmware.doormojo.pojo.Login;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class OtpLoginActivity extends AppCompatActivity {
@@ -156,7 +161,7 @@ public class OtpLoginActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+   /* @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -180,7 +185,7 @@ public class OtpLoginActivity extends AppCompatActivity {
             // other 'case' lines to check for other
             // permissions this app might request
         }
-    }
+    }*/
     @Override
     public void onBackPressed() {
 
@@ -227,9 +232,6 @@ public class OtpLoginActivity extends AppCompatActivity {
 
                         try
                         {
-                            //getting test master array
-                            // testMasterDetails = testMasterArray.toString();
-
                             Log.e("Login Json_string",response.toString());
                             Gson gson = new Gson();
 
@@ -261,7 +263,62 @@ public class OtpLoginActivity extends AppCompatActivity {
                     }
                 }
         );
+
         mVolleyRequest.add(obreq);
+    }
+
+    private void LoginUser1() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, MyApplication.URL_REGISTER,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("RESPONSE",response);
+
+                        try {
+
+                        }catch (Exception e)
+                        {e.printStackTrace();
+
+                        }
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.e("RESPONSE ERR","That didn't work!");
+
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            //adding parameters to the request
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put(Constants.MOBILE_NUMBER,mobile);
+                param.put(Constants.NAME,name);
+                param.put(Constants.EMAIL,email);
+                return param;
+            }
+           /* @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return login == null ? null : login.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", login, "utf-8");
+                    return null;
+                }
+            }*/
+
+        };
+
+
+        // Add the request to the RequestQueue.
+        mVolleyRequest.add(stringRequest);
     }
 
     private void ResendOtp() {

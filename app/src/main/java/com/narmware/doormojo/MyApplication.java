@@ -3,8 +3,6 @@ package com.narmware.doormojo;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
-import com.facebook.FacebookSdk;
-
 /**
  * Created by rohitsavant on 05/05/18.
  */

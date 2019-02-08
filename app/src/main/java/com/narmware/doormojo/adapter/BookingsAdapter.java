@@ -41,7 +41,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.MyView
     FragmentTransaction fragmentTransaction;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView mTxtBService_name,mTxtBDate,mTxtBDesc,mTxtPrice;
+        TextView mTxtBService_name,mTxtBDate,mTxtBDesc,mTxtPrice,mTxtBNo;
         RatingBar mRatingBar;
         TextView mImgStaus;
         MyBookings mItem;
@@ -54,25 +54,33 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.MyView
             mTxtBDesc=view.findViewById(R.id.txt_desc);
             mRatingBar=view.findViewById(R.id.simpleRatingBar);
             mImgStaus=view.findViewById(R.id.status_img);
+            mTxtBNo=view.findViewById(R.id.txt_order_no);
+            mTxtPrice=view.findViewById(R.id.txt_price);
 
-           // mRelativeItem=view.findViewById(R.id.relative);
+            // mRelativeItem=view.findViewById(R.id.relative);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                   // int position= (int) mRelativeItem.getTag();
+                    // int position= (int) mRelativeItem.getTag();
                     //Toast.makeText(mContext, mItem.getOrder_id()+"", Toast.LENGTH_SHORT).show();
 
-                    if(mItem.getB_status().equals(Constants.PAID)) {
-                        setFragment(mItem.getB_service_name(), mItem.getB_date(), mItem.getB_desc(), mItem.getB_service_img(), mItem.getB_ratings());
+                    if (mItem.getB_price().equals("0.00") || mItem.getB_price().equals("0") || mItem.getB_price().equals("")) {
+                        Toast.makeText(mContext, "Your payment is not generated yet", Toast.LENGTH_SHORT).show();
                     }
-                    if(mItem.getB_status().equals(Constants.UNPAID)) {
-                        Activity activity= (Activity) mContext;
-                        Intent intent=new Intent(activity,WebViewActivity.class);
-                        intent.putExtra(Constants.BOOKING_ID,mItem.getOrder_id());
-                        activity.startActivity(intent);                    }
+                    else {
+                        if (mItem.getB_status().equals(Constants.PAID)) {
+                            //setFragment(mItem.getB_service_name(), mItem.getB_date(), mItem.getB_desc(), mItem.getB_service_img(), mItem.getB_ratings());
+                        }
+                        if (mItem.getB_status().equals(Constants.UNPAID)) {
+                            Activity activity = (Activity) mContext;
+                            Intent intent = new Intent(activity, WebViewActivity.class);
+                            intent.putExtra(Constants.BOOKING_ID, mItem.getOrder_id());
+                            activity.startActivity(intent);
+                        }
                     }
+                }
             });
 
 
@@ -102,6 +110,8 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.MyView
         holder.mTxtBDate.setText(booking.getB_date());
         holder.mTxtBService_name.setText(booking.getB_service_name());
         holder.mTxtBDesc.setText(booking.getB_desc());
+        holder.mTxtBNo.setText("#"+booking.getB_no());
+        holder.mTxtPrice.setText("Rs. "+booking.getB_price());
 
 /*
             holder.mRatingBar.setVisibility(View.VISIBLE);
@@ -112,6 +122,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.MyView
             {
                 holder.mImgStaus.setText(Constants.PAID);
                 holder.mImgStaus.setTextColor(mContext.getResources().getColor(R.color.green_700));
+                //holder.mRatingBar.setVisibility(View.VISIBLE);
             }
             if(booking.getB_status().equals(Constants.UNPAID))
             {

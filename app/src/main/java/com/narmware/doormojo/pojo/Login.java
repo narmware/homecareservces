@@ -4,7 +4,7 @@ package com.narmware.doormojo.pojo;
  * Created by rohitsavant on 25/05/18.
  */
 public class Login {
-    String user_contact,user_name,user_address;
+    String user_contact,name,user_address;
     String response,user_id,otp;
 
     public String getResponse() {
@@ -26,11 +26,11 @@ public class Login {
 
 
     public String getUser_name() {
-        return user_name;
+        return name;
     }
 
     public void setUser_name(String user_name) {
-        this.user_name = user_name;
+        this.name = user_name;
     }
 
     public String getUser_contact() {

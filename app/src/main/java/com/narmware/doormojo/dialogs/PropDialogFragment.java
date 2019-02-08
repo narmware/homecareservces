@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.ahmadrosid.svgloader.SvgLoader;
 import com.narmware.doormojo.R;
 import com.narmware.doormojo.helper.ImageBlur;
 import com.squareup.picasso.Picasso;
@@ -39,13 +40,13 @@ public class PropDialogFragment extends DialogFragment {
         //getting proper access to LayoutInflater is the trick. getLayoutInflater is a                   //Function
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View view = inflater.inflate(R.layout.item_booking_details, null);
+        View view = inflater.inflate(R.layout.item_booking_rating, null);
         mTxtName=view.findViewById(R.id.txt_name);
-        mTxtDate=view.findViewById(R.id.txt_date);
+        /*mTxtDate=view.findViewById(R.id.txt_date);
         mTxtDesc=view.findViewById(R.id.txt_desc);
 
         mImgBlurr=view.findViewById(R.id.img_blurr);
-        mImgService=view.findViewById(R.id.img_service);
+        mImgService=view.findViewById(R.id.img_service);*/
 
         mImgBtnClose=view.findViewById(R.id.btn_close);
         mRatingBar=view.findViewById(R.id.simpleRatingBar);
@@ -57,14 +58,24 @@ public class PropDialogFragment extends DialogFragment {
         rating = getArguments().getString("rating");
 
         mTxtName.setText(name);
-        mTxtDesc.setText(desc);
-        mTxtDate.setText(date);
+       /* mTxtDesc.setText(desc);
+        mTxtDate.setText(date);*/
         mRatingBar.setRating(Float.parseFloat(rating));
 
-        Picasso.with(getContext())
-                .load(image_url)
-                .fit()
-                .into(mImgService);
+       /* String img_extension=image_url.substring(image_url.length() - 3);
+
+        // Log.e("trimWord", serviceMain.getService_image().substring(serviceMain.getService_image().length() - 3));
+        if(img_extension.equals("svg")) {
+            SvgLoader.pluck()
+                    .with(getActivity())
+                    .setPlaceHolder(R.mipmap.ic_launcher, R.mipmap.ic_launcher)
+                    .load(image_url, mImgService);
+        }else {
+            Picasso.with(getContext())
+                    .load(image_url)
+                    .fit()
+                    .into(mImgService);
+        }*/
         try {
 
             bitmap = new ImageBlur().getBitmapFromURL(image_url);

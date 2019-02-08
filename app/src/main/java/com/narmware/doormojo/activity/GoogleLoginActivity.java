@@ -26,17 +26,6 @@ import com.android.volley.toolbox.Volley;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.slider.library.Transformers.RotateDownTransformer;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookActivity;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -82,7 +71,6 @@ public class GoogleLoginActivity extends AppCompatActivity implements GoogleApiC
     // @BindView(R.id.intro_pager) protected ViewPager mViewPager;
    // PagerAdapter mAdapter;
     RequestQueue mVolleyRequest;
-    CallbackManager callbackManager;
 
     private static final String EMAIL = "email";
 
@@ -102,8 +90,6 @@ public class GoogleLoginActivity extends AppCompatActivity implements GoogleApiC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
 
         setContentView(R.layout.activity_google_login);
         getSupportActionBar().hide();
@@ -118,8 +104,6 @@ public class GoogleLoginActivity extends AppCompatActivity implements GoogleApiC
                 signIn();
             }
         });
-
-        callbackManager = CallbackManager.Factory.create();
         mBtnFbSignIn=findViewById(R.id.btn_fb_signin);
 
         /*LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
@@ -172,14 +156,6 @@ public class GoogleLoginActivity extends AppCompatActivity implements GoogleApiC
             }
         });*/
 
-        ProfileTracker profileTracker = new ProfileTracker() {
-            @Override
-            protected void onCurrentProfileChanged(
-                    Profile oldProfile,
-                    Profile currentProfile) {
-                // App code
-            }
-        };
     }
 
 
@@ -312,7 +288,6 @@ public class GoogleLoginActivity extends AppCompatActivity implements GoogleApiC
         }
         else {
             try {
-                callbackManager.onActivityResult(requestCode, resultCode, data);
                 Log.e("Facebook data", data + " ");
             } catch (Exception e) {
 
