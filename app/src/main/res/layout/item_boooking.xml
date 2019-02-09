@@ -84,12 +84,13 @@
 
         <RatingBar
             android:id="@+id/simpleRatingBar"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:progressTint="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="?android:attr/ratingBarStyleSmall"
             android:numStars="5"
+            android:layout_margin="5dp"
             android:rating="0.0"
             android:clickable="false"
             android:stepSize="1.0"/>

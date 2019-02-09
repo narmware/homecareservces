@@ -20,6 +20,7 @@ public class Constants {
     public static final String PASSWORD="password";
     public static final String USER_ID="user_id";
     public static final String BOOKING_ID="book_id";
+    public static final String BOOKING_RATING="booking_rating";
 
     public static final String PAID="PAID";
     public static final String UNPAID="UNPAID";

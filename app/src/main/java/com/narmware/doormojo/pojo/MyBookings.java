@@ -5,9 +5,10 @@ package com.narmware.doormojo.pojo;
  */
 
 public class MyBookings {
-    String b_service_name,b_date,b_ratings,b_desc,b_price,b_service_img,b_status,order_id,b_no;
+    String b_service_name,b_date,b_desc,b_price,b_service_img,b_status,order_id,b_no;
+    Float b_ratings;
 
-    public MyBookings(String order_id,String b_service_name, String b_date, String b_ratings, String b_desc, String b_price, String b_service_img, String b_status,String b_no) {
+    public MyBookings(String order_id,String b_service_name, String b_date, float b_ratings, String b_desc, String b_price, String b_service_img, String b_status,String b_no) {
         this.b_service_name = b_service_name;
         this.b_date = b_date;
         this.b_ratings = b_ratings;
@@ -59,11 +60,11 @@ public class MyBookings {
         this.b_date = b_date;
     }
 
-    public String getB_ratings() {
+    public float getB_ratings() {
         return b_ratings;
     }
 
-    public void setB_ratings(String b_ratings) {
+    public void setB_ratings(float b_ratings) {
         this.b_ratings = b_ratings;
     }
 

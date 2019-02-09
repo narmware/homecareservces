@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.MyView
                     }
                     else {
                         if (mItem.getB_status().equals(Constants.PAID)) {
-                            //setFragment(mItem.getB_service_name(), mItem.getB_date(), mItem.getB_desc(), mItem.getB_service_img(), mItem.getB_ratings());
+                            setFragment(mItem.getB_service_name(), mItem.getOrder_id());
                         }
                         if (mItem.getB_status().equals(Constants.UNPAID)) {
                             Activity activity = (Activity) mContext;
@@ -113,16 +114,13 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.MyView
         holder.mTxtBNo.setText("#"+booking.getB_no());
         holder.mTxtPrice.setText("Rs. "+booking.getB_price());
 
-/*
-            holder.mRatingBar.setVisibility(View.VISIBLE);
-            float rate= Float.parseFloat(booking.getB_ratings());
-            holder.mRatingBar.setRating(rate);*/
-
             if(booking.getB_status().equals(Constants.PAID))
             {
                 holder.mImgStaus.setText(Constants.PAID);
                 holder.mImgStaus.setTextColor(mContext.getResources().getColor(R.color.green_700));
-                //holder.mRatingBar.setVisibility(View.VISIBLE);
+                holder.mRatingBar.setVisibility(View.VISIBLE);
+
+                holder.mRatingBar.setRating(booking.getB_ratings());
             }
             if(booking.getB_status().equals(Constants.UNPAID))
             {
@@ -133,29 +131,10 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.MyView
         holder.mItem=booking;
     }
 
-    public void setFragment(String name,String date,String desc,String image_url,String rating) {
-        /*fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();*/
+    public void setFragment(String name,String id) {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //fragment.setSharedElementReturnTransition(TransitionInflater.from(mContext).inflateTransition(android.R.transition.explode));
-//            fragment.setExitTransition(TransitionInflater.from(mContext).inflateTransition(android.R.transition.explode));
-
-            // Create new fragment to add (Fragment B)
-            //fragment.setSharedElementEnterTransition(TransitionInflater.from(mContext).inflateTransition(android.R.transition.slide_left));
-            //fragment.setEnterTransition(TransitionInflater.from(mContext).inflateTransition(android.R.transition.explode));
-
-            // Add Fragment B
-           /* fragmentTransaction = fragmentManager.beginTransaction()
-                    .replace(R.id.container, fragment)
-                    .addToBackStack("transaction")
-                    .addSharedElement(mImgFrame, "MyTransition");
-
-            fragmentTransaction.commit();*/
-
 
             fragmentTransaction = fragmentManager.beginTransaction();
             Fragment prev = fragmentManager.findFragmentByTag("dialog");
@@ -168,10 +147,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<BookingsAdapter.MyView
             DialogFragment newFragment = PropDialogFragment.newInstance();
             Bundle args = new Bundle();
             args.putString("name",name);
-            args.putString("date",date);
-            args.putString("desc",desc);
-            args.putString("image",image_url);
-            args.putString("rating",rating);
+            args.putString("book_id",id);
 
             newFragment.setArguments(args);
             //newFragment.setSharedElementEnterTransition(TransitionInflater.from(mContext).inflateTransition(android.R.transition.slide_left));
