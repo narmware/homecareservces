@@ -28,11 +28,7 @@
 
         <activity android:name="com.narmware.homecare.MainActivity" />
         <activity android:name="com.narmware.homecare.activity.BottomNavigationActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.narmware.homecare.activity.BookAppointmentActivity" />
         <activity android:name="com.narmware.homecare.activity.LoginActivity">
@@ -40,7 +36,11 @@
         </activity>
         <activity android:name="com.narmware.homecare.activity.RegisterActivity" />
         <activity android:name="com.narmware.homecare.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".activity.GoogleLoginActivity">
@@ -58,11 +58,15 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <service android:name=".helper.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+
     </application>
+
 
 </manifest>
